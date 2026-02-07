@@ -1,24 +1,18 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
-
 import Wallet from "App/Models/Wallet";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 
 export default class WalletController {
 	public async show({ auth, view }: HttpContextContract) {
 		const wallets = await Wallet.query();
-		let newWallets: any = [];
+		const newWallets: any = [];
 		wallets.map((v) => newWallets.push((v as Wallet).toJSON()));
 		return view.render("admin/wallets", {
 			...auth.user?.toJSON(),
 			wallets: newWallets,
 		});
 	}
-	public async create({
-		auth,
-		request,
-		response,
-		session,
-	}: HttpContextContract) {
+	public async create({ request, response, session }: HttpContextContract) {
 		try {
 			const payload = await request.validate({
 				schema: schema.create({
@@ -44,7 +38,7 @@ export default class WalletController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -53,16 +47,10 @@ export default class WalletController {
 			response.redirect().back();
 		}
 	}
-	public async delete({
-		auth,
-		request,
-		response,
-		params,
-		session,
-	}: HttpContextContract) {
+	public async delete({ response, params, session }: HttpContextContract) {
 		try {
 			const id = params.id;
-			await Wallet.query().where("id", parseInt(id)).delete();
+			await Wallet.query().where("id", parseInt(id, 10)).delete();
 			session.flash("form.success", "Wallet delete successfull");
 			return response.redirect().toRoute("wallets.show");
 		} catch (error) {

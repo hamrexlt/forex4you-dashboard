@@ -1,6 +1,6 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import User from "App/Models/User";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 export default class ProfileController {
 	public async show({ view, auth }: HttpContextContract) {
 		return view.render("[user_name]/profile", { ...auth.user?.toJSON() });
@@ -43,7 +43,7 @@ export default class ProfileController {
 					);
 					return response.redirect().back();
 				}
-				let user = await User.updateOrCreate(
+				const user = await User.updateOrCreate(
 					{},
 					{ password: payload["new-password"] },
 				);
@@ -69,7 +69,7 @@ export default class ProfileController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");

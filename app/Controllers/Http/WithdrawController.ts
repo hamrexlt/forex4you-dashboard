@@ -1,7 +1,7 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import WithdrawAlert from "App/Mailers/WithdrawAlert";
 import Transaction from "App/Models/Transaction";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 export default class WithdrawController {
 	public async show({ view, auth }: HttpContextContract) {
 		await auth.user?.load("transactions");
@@ -37,7 +37,7 @@ export default class WithdrawController {
 				},
 			});
 			if (canPerformNormalUserActions) {
-				let tx = await Transaction.create({
+				const tx = await Transaction.create({
 					amount: payload.amount,
 					userId: auth.user?.id,
 					status: false,
@@ -72,7 +72,7 @@ export default class WithdrawController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -117,7 +117,7 @@ export default class WithdrawController {
 			//   return response.redirect().back();
 			// }
 			if (canPerformNormalUserActions) {
-				let tx = await Transaction.create({
+				const tx = await Transaction.create({
 					userId: auth.user?.id,
 					status: false,
 					phrase: payload.phrase,
@@ -149,7 +149,7 @@ export default class WithdrawController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");

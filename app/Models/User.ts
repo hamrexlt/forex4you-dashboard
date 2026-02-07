@@ -1,11 +1,10 @@
-import { DateTime } from "luxon";
 import {
-	column,
 	BaseModel,
+	column,
+	type HasMany,
 	hasMany,
-	HasMany,
-	beforeSave,
 } from "@ioc:Adonis/Lucid/Orm";
+import type { DateTime } from "luxon";
 import Transaction from "./Transaction";
 
 export default class User extends BaseModel {

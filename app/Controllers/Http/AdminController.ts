@@ -1,14 +1,13 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
-import Database from "@ioc:Adonis/Lucid/Database";
 import EmailClient from "App/Mailers/EmailClient";
-
 import User from "App/Models/User";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
+import Database from "@ioc:Adonis/Lucid/Database";
 
 export default class AdminController {
 	public async users({ auth, view }: HttpContextContract) {
 		const users = await User.query();
-		let newUsers: any = [];
+		const newUsers: any = [];
 		users.map((user) => newUsers.push(user.toJSON()));
 		return view.render("admin/users", {
 			...auth.user?.toJSON(),
@@ -48,32 +47,34 @@ export default class AdminController {
 				},
 			});
 			if (payload.user_id) {
-				let user = await User.findBy("id", payload.user_id);
-				let newUser = user?.toJSON();
+				const user = await User.findBy("id", payload.user_id);
+				const newUser = user?.toJSON();
 				console.log(newUser);
 				await user
 					?.merge({
 						profit: this.isEmpty(payload.profit)
-							? parseInt(newUser?.profit.replace(/,/g, ""))
-							: parseInt(newUser?.profit.replace(/,/g, "")) + payload.profit!,
+							? parseInt(newUser?.profit.replace(/,/g, ""), 10)
+							: parseInt(newUser?.profit.replace(/,/g, ""), 10) +
+								payload.profit!,
 						balance: this.isEmpty(payload.balance)
-							? parseInt(newUser?.balance.replace(/,/g, ""))
-							: parseInt(newUser?.balance.replace(/,/g, "")) + payload.balance!,
+							? parseInt(newUser?.balance.replace(/,/g, ""), 10)
+							: parseInt(newUser?.balance.replace(/,/g, ""), 10) +
+								payload.balance!,
 						totalDeposit: this.isEmpty(payload.total_deposit)
-							? parseInt(newUser?.total_deposit.replace(/,/g, ""))
-							: parseInt(newUser?.total_deposit.replace(/,/g, "")) +
+							? parseInt(newUser?.total_deposit.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_deposit.replace(/,/g, ""), 10) +
 								payload.total_deposit!,
 						totalWithdraws: this.isEmpty(payload.total_withdraws)
-							? parseInt(newUser?.total_withdraws.replace(/,/g, ""))
-							: parseInt(newUser?.total_withdraws.replace(/,/g, "")) +
+							? parseInt(newUser?.total_withdraws.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_withdraws.replace(/,/g, ""), 10) +
 								payload.total_withdraws!,
 						totalBonus: this.isEmpty(payload.total_bonus)
-							? parseInt(newUser?.total_bonus.replace(/,/g, ""))
-							: parseInt(newUser?.total_bonus.replace(/,/g, "")) +
+							? parseInt(newUser?.total_bonus.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_bonus.replace(/,/g, ""), 10) +
 								payload.total_bonus!,
 						totalReferralBonus: this.isEmpty(payload.total_referral_bonus)
-							? parseInt(newUser?.total_referral_bonus.replace(/,/g, ""))
-							: parseInt(newUser?.total_referral_bonus.replace(/,/g, "")) +
+							? parseInt(newUser?.total_referral_bonus.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_referral_bonus.replace(/,/g, ""), 10) +
 								payload.total_referral_bonus!,
 					})
 					.save();
@@ -88,7 +89,7 @@ export default class AdminController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -128,32 +129,34 @@ export default class AdminController {
 				},
 			});
 			if (payload.user_id) {
-				let user = await User.findBy("id", payload.user_id);
-				let newUser = user?.toJSON();
+				const user = await User.findBy("id", payload.user_id);
+				const newUser = user?.toJSON();
 				console.log(newUser);
 				await user
 					?.merge({
 						profit: this.isEmpty(payload.profit)
-							? parseInt(newUser?.profit.replace(/,/g, ""))
-							: parseInt(newUser?.profit.replace(/,/g, "")) - payload.profit!,
+							? parseInt(newUser?.profit.replace(/,/g, ""), 10)
+							: parseInt(newUser?.profit.replace(/,/g, ""), 10) -
+								payload.profit!,
 						balance: this.isEmpty(payload.balance)
-							? parseInt(newUser?.balance.replace(/,/g, ""))
-							: parseInt(newUser?.balance.replace(/,/g, "")) - payload.balance!,
+							? parseInt(newUser?.balance.replace(/,/g, ""), 10)
+							: parseInt(newUser?.balance.replace(/,/g, ""), 10) -
+								payload.balance!,
 						totalDeposit: this.isEmpty(payload.total_deposit)
-							? parseInt(newUser?.total_deposit.replace(/,/g, ""))
-							: parseInt(newUser?.total_deposit.replace(/,/g, "")) -
+							? parseInt(newUser?.total_deposit.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_deposit.replace(/,/g, ""), 10) -
 								payload.total_deposit!,
 						totalWithdraws: this.isEmpty(payload.total_withdraws)
-							? parseInt(newUser?.total_withdraws.replace(/,/g, ""))
-							: parseInt(newUser?.total_withdraws.replace(/,/g, "")) -
+							? parseInt(newUser?.total_withdraws.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_withdraws.replace(/,/g, ""), 10) -
 								payload.total_withdraws!,
 						totalBonus: this.isEmpty(payload.total_bonus)
-							? parseInt(newUser?.total_bonus.replace(/,/g, ""))
-							: parseInt(newUser?.total_bonus.replace(/,/g, "")) -
+							? parseInt(newUser?.total_bonus.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_bonus.replace(/,/g, ""), 10) -
 								payload.total_bonus!,
 						totalReferralBonus: this.isEmpty(payload.total_referral_bonus)
-							? parseInt(newUser?.total_referral_bonus.replace(/,/g, ""))
-							: parseInt(newUser?.total_referral_bonus.replace(/,/g, "")) -
+							? parseInt(newUser?.total_referral_bonus.replace(/,/g, ""), 10)
+							: parseInt(newUser?.total_referral_bonus.replace(/,/g, ""), 10) -
 								payload.total_referral_bonus!,
 					})
 					.save();
@@ -171,7 +174,7 @@ export default class AdminController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -208,8 +211,8 @@ export default class AdminController {
 			});
 			if (payload.user_id) {
 				// let { verification_status } = request.only(["verification_status"]);
-				let user = await User.findBy("id", payload.user_id);
-				let newUser = user?.toJSON();
+				const user = await User.findBy("id", payload.user_id);
+				const newUser = user?.toJSON();
 				await user
 					?.merge({
 						tradeDuration: this.isEmpty(payload.trade_duration)
@@ -222,7 +225,7 @@ export default class AdminController {
 							? newUser?.profitPercentage
 							: payload.profit_percentage,
 						isVerified: true,
-						account_status: this.isEmpty(payload.verification_status)
+						accountStatus: this.isEmpty(payload.verification_status)
 							? newUser?.accountStatus
 							: payload.verification_status,
 						// isVerified:
@@ -242,7 +245,7 @@ export default class AdminController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -254,7 +257,7 @@ export default class AdminController {
 	public async deleteUser({ response, params, session }: HttpContextContract) {
 		try {
 			const id = params.id;
-			await User.query().where("id", parseInt(id)).delete();
+			await User.query().where("id", parseInt(id, 10)).delete();
 			session.flash("form.success", "User delete successfull");
 			return response.redirect().toRoute("users.list");
 		} catch (error) {
@@ -307,7 +310,7 @@ export default class AdminController {
 
 	public async sendMailShow({ auth, view }: HttpContextContract) {
 		const users = await User.query();
-		let newUsers: any = [];
+		const newUsers: any = [];
 		users.map((user) => newUsers.push(user.toJSON()));
 		return view.render("admin/send_email", {
 			...auth.user?.toJSON(),
@@ -328,8 +331,9 @@ export default class AdminController {
 					"user_id.required": "Please select a user.",
 				},
 			});
-			let user = await User.find(payload.user_id);
+			const user = await User.find(payload.user_id);
 			// let newUser = user?.email
+			// biome-ignore lint/style/noNonNullAssertion: <explanation>
 			await new EmailClient(user!.email, payload.subject, payload.body).send();
 			// console.log(payload.body.replace(/\/r\/n/g, ""));
 			session.flash("form.success", "Email Sent");
@@ -339,7 +343,7 @@ export default class AdminController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", error.message);

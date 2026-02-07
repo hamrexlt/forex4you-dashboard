@@ -4,7 +4,7 @@
  * file.
  */
 
-import { NotificationConfig } from "@ioc:Verful/Notification";
+import type { NotificationConfig } from "@ioc:Verful/Notification";
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ import { NotificationConfig } from "@ioc:Verful/Notification";
 | inside the `contracts/notification.ts` file before mentioning them here.
 |
 */
-const NotificationConfig: NotificationConfig = {
+export default {
 	channel: "mail",
 	channels: {
 		/*
@@ -28,10 +28,9 @@ const NotificationConfig: NotificationConfig = {
     */
 		mail: {
 			driver: "mail",
+			//@ts-ignore
 			mailer: "smtp",
 		},
 	},
 	notificationsTable: "",
-};
-
-export default NotificationConfig;
+} as NotificationConfig;

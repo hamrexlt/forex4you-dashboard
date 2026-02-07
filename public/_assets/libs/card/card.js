@@ -1286,7 +1286,7 @@ var card = (function (r) {
 										(t = a.trim(t)),
 										!!/^\d+$/.test(e) &&
 											!!/^\d+$/.test(t) &&
-												!!((e = parseInt(e, 10)) && e <= 12) &&
+											!!((e = parseInt(e, 10)) && e <= 12) &&
 											(2 === t.length &&
 												(t =
 													new Date().getFullYear().toString().slice(0, 2) + t),

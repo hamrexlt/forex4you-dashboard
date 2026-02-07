@@ -5,8 +5,8 @@
  * file.
  */
 
+import type User from "App/Models/User";
 import Bouncer from "@ioc:Adonis/Addons/Bouncer";
-import User from "App/Models/User";
 
 /*
 |--------------------------------------------------------------------------

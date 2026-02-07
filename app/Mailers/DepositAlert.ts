@@ -1,5 +1,5 @@
-import { BaseMailer, MessageContract } from "@ioc:Adonis/Addons/Mail";
-import User from "App/Models/User";
+import type User from "App/Models/User";
+import { BaseMailer, type MessageContract } from "@ioc:Adonis/Addons/Mail";
 import env from "@ioc:Adonis/Core/Env";
 
 export default class DepositAlert extends BaseMailer {

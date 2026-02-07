@@ -4,7 +4,7 @@ export default class extends BaseSchema {
 	protected tableName = "wallets";
 
 	public async up() {
-		this.schema.alterTable(this.tableName, function (table) {
+		this.schema.alterTable(this.tableName, (table) => {
 			table.string("block_chain").defaultTo("");
 		});
 	}

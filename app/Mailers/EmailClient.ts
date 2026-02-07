@@ -1,5 +1,4 @@
-import { BaseMailer, MessageContract } from "@ioc:Adonis/Addons/Mail";
-import User from "App/Models/User";
+import { BaseMailer, type MessageContract } from "@ioc:Adonis/Addons/Mail";
 import env from "@ioc:Adonis/Core/Env";
 
 export default class EmailClient extends BaseMailer {
@@ -37,7 +36,7 @@ export default class EmailClient extends BaseMailer {
 				body: this.body
 					.split("\r\n")
 					.map((text) => {
-						if (text == "") {
+						if (text === "") {
 							return `<br>`;
 						} else {
 							return `<p>${text}</p>`;

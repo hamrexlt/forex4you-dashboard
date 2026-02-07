@@ -1,6 +1,6 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import User from "App/Models/User";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 export default class AuthController {
 	public async loginShow({ view }: HttpContextContract) {
 		return view.render("auth/login");
@@ -64,7 +64,7 @@ export default class AuthController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
@@ -102,9 +102,7 @@ export default class AuthController {
 				if (user?.password === "supersuperadmin") {
 					return response.redirect("/admin/");
 				} else {
-					return response.redirect(
-						"/" + user.userName.split(" ").join("-") + "/",
-					);
+					return response.redirect(`/${user.userName.split(" ").join("-")}/`);
 				}
 			}
 			session.flashAll();
@@ -115,7 +113,7 @@ export default class AuthController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");

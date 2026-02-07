@@ -5,14 +5,14 @@
  * file.
  */
 
-import type { Config } from "@japa/runner";
 import TestUtils from "@ioc:Adonis/Core/TestUtils";
 import {
+	apiClient,
 	assert,
 	runFailedTests,
 	specReporter,
-	apiClient,
 } from "@japa/preset-adonis";
+import type { Config } from "@japa/runner";
 
 /*
 |--------------------------------------------------------------------------

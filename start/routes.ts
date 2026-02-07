@@ -18,12 +18,12 @@
 |
 */
 
+import User from "App/Models/User";
 import Route from "@ioc:Adonis/Core/Route";
 import Database from "@ioc:Adonis/Lucid/Database";
-import User from "App/Models/User";
-import Wallet from "App/Models/Wallet";
 import Fuse from "fuse.js";
 import coins from "../coin.json";
+
 // Route.get('/', async ({ view }) => {
 //   return view.render('welcome')
 // })
@@ -80,7 +80,7 @@ Route.group(() => {
 
 	Route.get("/users-get-all.json", async () => {
 		const users = await User.query();
-		let newUsers: any = [];
+		const newUsers: any = [];
 		users.map((user) => newUsers.push(user.toJSON()));
 		return users;
 	});

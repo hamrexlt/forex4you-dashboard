@@ -1,5 +1,5 @@
-import { DateTime } from "luxon";
 import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import type { DateTime } from "luxon";
 
 export default class Wallet extends BaseModel {
 	@column({ isPrimary: true })

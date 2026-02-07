@@ -1,4 +1,4 @@
-const { join } = require("path");
+const { join } = require("node:path");
 const Encore = require("@symfony/webpack-encore");
 
 /*
@@ -87,7 +87,8 @@ Encore.addEntry("app", "./resources/js/app.ts");
 Encore.disableSingleRuntimeChunk();
 
 Encore.enableBabelTypeScriptPreset({});
-
+// Encore.enableTypeScriptLoader();
+// Encore.enableForkedTypeScriptTypesChecking();
 /*
 |--------------------------------------------------------------------------
 | Cleanup output folder

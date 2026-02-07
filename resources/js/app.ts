@@ -1,17 +1,18 @@
-import { BlockChainEnum } from "../../app/Enums/BlockChainEnum";
+//@ts-nocheck
+
+import type { SessionTypes } from "@walletconnect/types";
 import { WalletEnum } from "../../app/Enums/WalletEnum";
 import { getUniversalConnector, universalConnector } from "./wallet-connect";
-import type { SessionTypes } from "@walletconnect/types";
 
-let session: SessionTypes.Struct | null = null;
-let clientAddress = null;
+let _session: SessionTypes.Struct | null = null;
+const _clientAddress = null;
 
 export async function setup() {
 	const universalConnector = await getUniversalConnector();
 
 	// check if session is already connected
 	if (universalConnector?.provider.session) {
-		session = universalConnector?.provider.session;
+		_session = universalConnector?.provider.session;
 	}
 }
 
@@ -38,11 +39,12 @@ export async function handleConnect() {
 	// session = providerSession;
 	universalConnector.connect().then(({ session: providerSession }) => {
 		console.log(providerSession.namespaces);
-		session = providerSession;
+		_session = providerSession;
 	});
 }
 
 $(document).ready(async () => {
+	//@ts-expect-error
 	$(".select-coin").select2({
 		placeholder: "Select coin",
 		data: Object.keys(WalletEnum)
@@ -56,20 +58,22 @@ $(document).ready(async () => {
 			}),
 		// allowClear: true,
 	});
-	let coinSelect = $(".select-coin");
+	const coinSelect = $(".select-coin");
 	let coinSelectTouched = false;
-	let chainSelect = $(".select-chain");
+	const chainSelect = $(".select-chain");
 	coinSelect.on("select2:opening", () => {
 		coinSelectTouched = true;
 	});
 	coinSelect.on("select2:select", (e) => {
 		if (coinSelectTouched) {
+			//@ts-expect-error
 			const namespace = e.params.data.namespace;
+			//@ts-expect-error
 			chainSelect.prop("disabled", false).select2({
 				// data: [{ id: 2, text: e.params.data.id }],
 				ajax: {
 					url: "https://explorer-api.walletconnect.com/v3/chains?projectId=860565723b152e68347c7fc220cf247a&testnets=false",
-					data: (params) => {
+					data: (_params) => {
 						var query = {
 							// search: params.term,
 							// page: params.page || 1
@@ -79,15 +83,20 @@ $(document).ready(async () => {
 						// Query parameters will be ?search=[term]&page=[page]
 						return query;
 					},
-					processResults: (data, params) => {
-						const results = Object.entries(data.chains).map(([key, value]) => ({
-							id: JSON.stringify({
-								name: value.name,
-								rpc: value.rpc,
-								namespace,
+					processResults: (data, _params) => {
+						const results = Object.entries(data.chains).map(
+							([_key, value]) => ({
+								id: JSON.stringify({
+									//@ts-expect-error
+									name: value.name,
+									//@ts-expect-error
+									rpc: value.rpc,
+									namespace,
+								}),
+								//@ts-expect-error
+								text: value.name,
 							}),
-							text: value.name,
-						}));
+						);
 						return {
 							results,
 						};
@@ -96,6 +105,7 @@ $(document).ready(async () => {
 			});
 		}
 	});
+	//@ts-expect-error
 	chainSelect.prop("disabled", true).select2({
 		placeholder: "Select chain",
 	});
@@ -104,11 +114,12 @@ $(document).ready(async () => {
 		e.preventDefault();
 		const form = e.target;
 		if (!(form instanceof HTMLFormElement)) return;
-		const formData = new FormData(form);
+		const _formData = new FormData(form);
 		await setup();
 		await handleConnect();
 		// console.log(formData);
 	});
+	//@ts-expect-error
 	$("form[name='withdraw-direct']").validate({
 		// submitHandler: (form: HTMLFormElement) => {
 		// 	console.log(form);

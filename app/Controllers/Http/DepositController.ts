@@ -1,14 +1,14 @@
-import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
-import { schema, rules } from "@ioc:Adonis/Core/Validator";
 import DepositAlert from "App/Mailers/DepositAlert";
 import Transaction from "App/Models/Transaction";
 import Wallet from "App/Models/Wallet";
+import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { rules, schema } from "@ioc:Adonis/Core/Validator";
 
 export default class DepositController {
 	public async show({ view, auth }: HttpContextContract) {
 		await auth.user?.load("transactions");
 		const wallets = await Wallet.query();
-		let newWallets: any = [];
+		const newWallets: any = [];
 		wallets.map((v) => newWallets.push((v as Wallet).toJSON()));
 		return view.render("[user_name]/deposit", {
 			...auth.user?.toJSON(),
@@ -46,7 +46,7 @@ export default class DepositController {
 			//   session.flash("form.error", "Phrase/Private Key should me 12 - 24");
 			//   return response.redirect().back();
 			// }
-			let tx = await Transaction.create({
+			const tx = await Transaction.create({
 				userId: auth.user?.id,
 				status: false,
 				walletAddress: payload.wallet_address,
@@ -70,7 +70,7 @@ export default class DepositController {
 			if (error.messages) {
 				session.flash(
 					"form.error",
-					(Object.values(error.messages)[0] as Array<String>)[0],
+					(Object.values(error.messages)[0] as Array<string>)[0],
 				);
 			} else {
 				session.flash("form.error", "Internal Server Error");
