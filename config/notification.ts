@@ -4,7 +4,7 @@
  * file.
  */
 
-import { NotificationConfig } from '@ioc:Verful/Notification'
+import { NotificationConfig } from "@ioc:Verful/Notification";
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,9 @@ import { NotificationConfig } from '@ioc:Verful/Notification'
 |
 */
 const NotificationConfig: NotificationConfig = {
-  channel: 'mail',
-  channels: {
-    /*
+	channel: "mail",
+	channels: {
+		/*
     |--------------------------------------------------------------------------
     | Mail channel
     |--------------------------------------------------------------------------
@@ -26,12 +26,12 @@ const NotificationConfig: NotificationConfig = {
     | Use this channel to send notifications via email.
     |
     */
-    mail: {
-      driver: 'mail',
-      mailer: 'smtp'
-    },
-  },
-  notificationsTable: ''
-}
+		mail: {
+			driver: "mail",
+			mailer: "smtp",
+		},
+	},
+	notificationsTable: "",
+};
 
-export default NotificationConfig
+export default NotificationConfig;

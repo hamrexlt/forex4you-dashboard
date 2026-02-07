@@ -105,6 +105,12 @@
                                             Address
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#direct" role="tab"
+                                            aria-selected="false">
+                                            Direct
+                                        </a>
+                                    </li>
                                 </ul>
                                 <!-- Tab panes -->
                                 <div class="tab-content  text-muted">
@@ -118,13 +124,13 @@
 
 
                                                         <div class="mb-3">
-                                                            <label for="wallet_type" class="form-label">Wallet type
+                                                            <label for="wallet_type" class="form-label">Coin type
                                                                 {{-- <span class="text-danger">*</span> --}}
                                                             </label>
                                                             <select name="wallet_type" id="wallet_type"
                                                                 class="select-wallet-type"></select>
                                                             <div class="invalid-feedback">
-                                                                Please select wallet type
+                                                                Please select coin type
                                                             </div>
                                                         </div>
 
@@ -232,6 +238,69 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {{-- Direct --}}
+                                    <div class="tab-pane" id="direct" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-xl-7">
+                                                <div class="">
+                                                    <form name="withdraw-direct" class="needs-validation" novalidate>
+
+
+                                                        {{-- <div class="mb-3">
+                                                            <label for="coin_type" class="form-label">Coin type
+                                                                {{-- <span class="text-danger">*</span> --}}
+                                                            </label>
+                                                            <select name="coin_type" id="coin_type"
+                                                                class="select-coin-type"></select>
+                                                            <div class="invalid-feedback">
+                                                                Please select coin type
+                                                            </div>
+                                                        </div> --}}
+
+                                                        {{-- <div class="mb-3">
+                                                            <label for="amount" class="form-label">Amount
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('amount', '') ?? '' }}"
+                                                                    name="amount" type="text" class="form-control"
+                                                                    id="amount" placeholder="Enter amount" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label for="wallet_address" class="form-label">Wallet Adress
+                                                            </label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text">$</span>
+                                                                <input
+                                                                    value="{{ flashMessages.get('wallet_address', '') ?? '' }}"
+                                                                    name="wallet_address" type="text"
+                                                                    class="form-control" id="wallet_address"
+                                                                    placeholder="Enter wallet_address" required>
+
+                                                            </div>
+
+                                                            <div class="invalid-feedback">
+                                                                Please enter amount
+                                                            </div>
+                                                        </div> --}}
+
+                                                        <div class="mt-4">
+                                                            <button class="btn btn-soft-warning w-100"
+                                                                type="submit">Withdraw to wallet</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->
@@ -315,31 +384,50 @@
 @section('scripts')
 @super
 <!-- prismjs plugin -->
-<script src="/assets/libs/prismjs/prism.js"></script>
+<script src="/_assets/libs/prismjs/prism.js"></script>
 <!--jquery cdn-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.22.0/dist/jquery.validate.min.js"></script>
 <!--select2 cdn-->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script defer>
     $(document).ready(async function () {
         $('.select-wallet-type').select2({
-            placeholder: "Please select wallet type",
+            placeholder: "Please select coin type",
+            ajax: {
+                url: '/{{user_name}}/coins',
+                data: function (params) {
+                    var query = {
+                        search: params.term,
+                        page: params.page || 1
+                    }
+
+                    // Query parameters will be ?search=[term]&page=[page]
+                    return query;
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: Array.from(data.results).map((coin) => ({ id: coin, text: coin })),
+                        pagination: {
+                            more: (params.page * 10) < data.count_filtered
+                        }
+                    };
+                }
+
+            }
             // allowClear: true,
         })
         $('.select-coin-type').select2({
             placeholder: "Please select coin type",
             // allowClear: true,
         })
-        $.getJSON('https://registry.walletconnect.com/v2/all', (data) => {
-            // console.log(data)
-            $(".select-wallet-type").append("<option></option>")
-            let items = Object.values(data.listings)
-            items.map((value, i) => {
-                $(".select-wallet-type").append(new Option(value.name, value.name, false, false)).trigger("change")
-            });
-        })
+
+
         $.getJSON('/{{user_name}}/wallets', (data) => {
+            console.log(data)
             $(".select-coin-type").append("<option></option>")
             if (data.length > 0) {
                 // let items2 = Object.values(data.listings)

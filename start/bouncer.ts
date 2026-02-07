@@ -31,14 +31,14 @@ import User from "App/Models/User";
 |****************************************************************
 */
 export const { actions } = Bouncer.define(
-  "canPerformNormalUserActions",
-  async (_user: User) => {
-    // if (user.isVerified) {
-    //   return true;
-    // }
-    return true;
-    // return Bouncer.deny("Action not allowed, you're not activated");
-  }
+	"canPerformNormalUserActions",
+	async (_user: User) => {
+		// if (user.isVerified) {
+		//   return true;
+		// }
+		return true;
+		// return Bouncer.deny("Action not allowed, you're not activated");
+	},
 );
 
 /*

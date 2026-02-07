@@ -1,5 +1,9 @@
 @layout('layouts/main')
 @set('title', 'Wallets')
+@section('head')
+@super
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@end
 @section('body')
 <div class="container-fluid">
     <!-- start page title -->
@@ -66,6 +70,28 @@
                                                 class="needs-validation" novalidate>
 
                                                 <div class="mb-3">
+                                                    <label for="coinName" class="form-label">Select Coin
+                                                    </label>
+                                                    <select name="wallet_name" id="coinName" class="select-coin">
+                                                        <option></option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select coin
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="chainName" class="form-label">Select BlockChain
+                                                    </label>
+                                                    <select name="block_chain" id="chainName" class="select-chain">
+                                                        <option></option>
+                                                    </select>
+                                                    <div class="invalid-feedback">
+                                                        Please select chain
+                                                    </div>
+                                                </div>
+
+                                                {{-- <div class="mb-3">
                                                     <label for="name" class="form-label">Wallet Type
                                                     </label>
                                                     <input value="{{ flashMessages.get('wallet_name', '') ?? '' }}"
@@ -74,7 +100,7 @@
                                                     <div class="invalid-feedback">
                                                         Please enter wallet type
                                                     </div>
-                                                </div>
+                                                </div> --}}
 
                                                 <div class="mb-3">
                                                     <label for="wallet-address" class="form-label">Wallet Address
@@ -115,7 +141,8 @@
                                                 <th scope="col" style="width: 46px;">
                                                 </th>
                                                 <th scope="col">ID</th>
-                                                <th scope="col">Wallet Name</th>
+                                                <th scope="col">Coin Name</th>
+                                                <th scope="col">BlockChain</th>
                                                 <th scope="col">Address</th>
                                             </tr>
                                         </thead>
@@ -132,6 +159,7 @@
                                                 <td>
                                                     {{wallet.wallet_name}}
                                                 </td>
+                                                <td>{{wallet.block_chain}}</td>
                                                 <td>{{wallet.wallet_address}}</td>
 
                                             </tr>
@@ -140,6 +168,7 @@
                                             <tr>
                                                 <td>
                                                 </td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -157,4 +186,21 @@
         </div>
     </div>
 </div>
+@end
+
+@section('scripts')
+@super
+<!-- prismjs plugin -->
+<script src="/_assets/libs/prismjs/prism.js"></script>
+<!--jquery cdn-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--select2 cdn-->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script defer>
+    $(document).ready(async function () {
+
+
+    })
+</script>
 @end

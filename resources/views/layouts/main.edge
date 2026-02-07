@@ -9,14 +9,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} | Forex4You</title>
   @!section('head')
+
   <!-- Bootstrap Css -->
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/_assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
   <!-- Icons Css -->
-  <link href="/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+  <link href="/_assets/css/icons.min.css" rel="stylesheet" type="text/css" />
   <!-- App Css-->
-  <link href="/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+  <link href="/_assets/css/app.min.css" rel="stylesheet" type="text/css" />
   <!-- custom Css-->
-  <link href="/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+  <link href="/_assets/css/custom.min.css" rel="stylesheet" type="text/css" />
   <style>
     .wpp-float-btn {
       position: fixed;
@@ -99,6 +100,7 @@
   {{--
   <script src="//code.tidio.co/yd6swpqdh9eqcuvtec3bampn72xmhqtw.js" async></script> --}}
   <!-- Start of Async Drift Code -->
+  {{--
   <script>
     "use strict";
 
@@ -124,44 +126,44 @@
     }();
     drift.SNIPPET_VERSION = '0.3.1';
     drift.load('wvr3paeikzew');
-  </script>
+  </script> --}}
   <!-- End of Async Drift Code -->
   <!-- JAVASCRIPT -->
   <!-- Layout config Js -->
-  <script src="/assets/js/layout.js"></script>
+  <script src="/_assets/js/layout.js"></script>
 
-  <script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/libs/simplebar/simplebar.min.js"></script>
-  <script src="/assets/libs/node-waves/waves.min.js"></script>
-  <script src="/assets/libs/feather-icons/feather.min.js"></script>
-  <script src="/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-  <script src="/assets/js/plugins.js"></script>
+  <script src="/_assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/_assets/libs/simplebar/simplebar.min.js"></script>
+  <script src="/_assets/libs/node-waves/waves.min.js"></script>
+  <script src="/_assets/libs/feather-icons/feather.min.js"></script>
+  <script src="/_assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+  <script src="/_assets/js/plugins.js"></script>
 
   <!-- apexcharts -->
-  <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/_assets/libs/apexcharts/apexcharts.min.js"></script>
 
   <!-- Vector map-->
-  <script src="/assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
-  <script src="/assets/libs/jsvectormap/maps/world-merc.js"></script>
+  <script src="/_assets/libs/jsvectormap/js/jsvectormap.min.js"></script>
+  <script src="/_assets/libs/jsvectormap/maps/world-merc.js"></script>
 
   <!--Swiper slider js-->
-  <script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
+  <script src="/_assets/libs/swiper/swiper-bundle.min.js"></script>
 
   <!-- Dashboard init -->
-  <script src="/assets/js/pages/dashboard-ecommerce.init.js"></script>
+  <script src="/_assets/js/pages/dashboard-ecommerce.init.js"></script>
 
   <!-- apexcharts -->
-  <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
+  <script src="/_assets/libs/apexcharts/apexcharts.min.js"></script>
 
   <!-- piecharts init -->
-  <script src="/assets/js/pages/apexcharts-pie.init.js"></script>
+  <script src="/_assets/js/pages/apexcharts-pie.init.js"></script>
 
   <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
   <!-- App js -->
-  <script src="/assets/js/app.js"></script>
+  <script src="/_assets/js/app.js"></script>
   @end
-
+  @entryPointScripts('app')
 </body>
 
 </html>

@@ -3,8 +3,8 @@
  * file.
  */
 
-declare module '@ioc:Verful/Notification' {
-  /*
+declare module "@ioc:Verful/Notification" {
+	/*
   |--------------------------------------------------------------------------
   | Channels
   |--------------------------------------------------------------------------
@@ -15,13 +15,12 @@ declare module '@ioc:Verful/Notification' {
   | You can also create and register your own custom providers.
   |
   */
-  interface NotificationChannelsList {
-
-    /*
+	interface NotificationChannelsList {
+		/*
     |--------------------------------------------------------------------------
     | Mail Channel
     |--------------------------------------------------------------------------
     */
-    mail: NotificationChannels['mail']
-  }
+		mail: NotificationChannels["mail"];
+	}
 }

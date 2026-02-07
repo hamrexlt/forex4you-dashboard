@@ -39,9 +39,9 @@ Server.middleware.register([() => import("@ioc:Adonis/Core/BodyParser")]);
 |
 */
 Server.middleware.registerNamed({
-  auth: () => import("App/Middleware/Auth"),
-  "bounce-login-page": () => import("App/Middleware/BounceLoginPage"),
-  "bounce-unrecognised-url-username": () =>
-    import("App/Middleware/BounceUnrecognisedUrlUsername"),
-  admin: () => import("App/Middleware/AdminMiddleware"),
+	auth: () => import("App/Middleware/Auth"),
+	"bounce-login-page": () => import("App/Middleware/BounceLoginPage"),
+	"bounce-unrecognised-url-username": () =>
+		import("App/Middleware/BounceUnrecognisedUrlUsername"),
+	admin: () => import("App/Middleware/AdminMiddleware"),
 });

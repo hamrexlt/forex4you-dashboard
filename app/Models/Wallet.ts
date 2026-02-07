@@ -2,18 +2,21 @@ import { DateTime } from "luxon";
 import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
 
 export default class Wallet extends BaseModel {
-  @column({ isPrimary: true })
-  public id: number;
+	@column({ isPrimary: true })
+	public id: number;
 
-  @column()
-  public walletName: string;
+	@column()
+	public walletName: string;
 
-  @column()
-  public walletAddress: string;
+	@column()
+	public walletAddress: string;
 
-  @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime;
+	@column({ columnName: "block_chain" })
+	public blockChain?: string | null;
 
-  @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime;
+	@column.dateTime({ autoCreate: true })
+	public createdAt: DateTime;
+
+	@column.dateTime({ autoCreate: true, autoUpdate: true })
+	public updatedAt: DateTime;
 }
