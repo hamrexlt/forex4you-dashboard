@@ -1,0 +1,10 @@
+
+version: "3"
+agent:
+    authtoken: 39LNmEfhCAr2TwdQcP08p0qS5Rk_4WfNgR4Vmmprh4uKEVFVw
+tunnels:
+
+  assets:
+    addr: 8080
+    proto: http
+

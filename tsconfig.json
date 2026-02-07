@@ -2,6 +2,7 @@
 	"extends": "adonis-preset-ts/tsconfig.json",
 	"exclude": ["node_modules", "build"],
 	"include": ["**/*"],
+
 	"compilerOptions": {
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
@@ -17,7 +18,8 @@
 			"App/*": ["./app/*"],
 			"Config/*": ["./config/*"],
 			"Contracts/*": ["./contracts/*"],
-			"Database/*": ["./database/*"]
+			"Database/*": ["./database/*"],
+			"@/*": ["./resources/js/*"]
 		},
 		"lib": ["DOM", "ES2024"],
 		"types": [
@@ -33,6 +35,7 @@
 			"@verful/notifications",
 			"@adonisjs/bouncer",
 			"jquery"
-		]
+		],
+		"jsx": "react-jsx"
 	}
 }

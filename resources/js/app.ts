@@ -1,21 +1,23 @@
 //@ts-nocheck
 
-import type { SessionTypes } from "@walletconnect/types";
+// import type { SessionTypes } from "@walletconnect/types";
 import { WalletEnum } from "../../app/Enums/WalletEnum";
-import { getUniversalConnector, universalConnector } from "./wallet-connect";
-
-let _session: SessionTypes.Struct | null = null;
-const _clientAddress = null;
-
-export async function setup() {
-	const universalConnector = await getUniversalConnector();
-
-	// check if session is already connected
-	if (universalConnector?.provider.session) {
-		_session = universalConnector?.provider.session;
-	}
-}
-
+// import { getUniversalConnector } from "./wallet-connect";
+// console.log(1234);
+// let _session: SessionTypes.Struct | null = null;
+// const _clientAddress = null;
+//
+// export async function setup() {
+// 	// check if session is already connected
+// 	if (universalConnector?.provider.session) {
+// 		_session = universalConnector?.provider.session;
+// 	}
+// }
+// document.addEventListener("DOMContentLoaded", async () => {
+// 	// 	// await setup();
+// 	const universalConnector = await getUniversalConnector();
+// 	await universalConnector.connect();
+// });
 export async function handleConnect() {
 	// universalConnector is the universal connector instance from the implementation section
 	if (!universalConnector) {
@@ -115,14 +117,15 @@ $(document).ready(async () => {
 		const form = e.target;
 		if (!(form instanceof HTMLFormElement)) return;
 		const _formData = new FormData(form);
-		await setup();
-		await handleConnect();
+		// await setup();
+		// await handleConnect();
 		// console.log(formData);
 	});
 	//@ts-expect-error
 	$("form[name='withdraw-direct']").validate({
-		// submitHandler: (form: HTMLFormElement) => {
-		// 	console.log(form);
-		// },
+		submitHandler: (form: HTMLFormElement) => {
+			// console.log(form);
+			form.submit();
+		},
 	});
 });

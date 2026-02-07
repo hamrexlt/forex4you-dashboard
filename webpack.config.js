@@ -1,5 +1,6 @@
 const { join } = require("node:path");
 const Encore = require("@symfony/webpack-encore");
+const path = require("node:path");
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Encore.setPublicPath("/assets");
 |
 */
 Encore.addEntry("app", "./resources/js/app.ts");
+Encore.addEntry("app_react", "./resources/js/app_react.tsx");
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +86,10 @@ Encore.addEntry("app", "./resources/js/app.ts");
 | Treat each entry point and its dependencies as its own isolated module.
 |
 */
+Encore.addAliases({
+	"@": path.resolve(__dirname, "resources/js/"),
+});
+
 Encore.disableSingleRuntimeChunk();
 
 Encore.enableBabelTypeScriptPreset({});
@@ -120,6 +126,10 @@ Encore.enableSourceMaps(!Encore.isProduction());
 */
 Encore.enableVersioning(Encore.isProduction());
 
+Encore.enablePostCssLoader();
+Encore.enableReactPreset((options) => {
+	options.development = !Encore.isProduction();
+});
 /*
 |--------------------------------------------------------------------------
 | Configure dev server
@@ -149,6 +159,12 @@ Encore.configureDevServerOptions((options) => {
 		watch: true,
 	});
 	options.hot = true;
+	options.allowedHosts = "all";
+	options.host = "0.0.0.0";
+	// options.host = "0.0.0.0";
+	// options.proxy = {}
+	// options.port = "443";
+	// delete options.client;
 	options.client = {
 		overlay: false,
 	};
