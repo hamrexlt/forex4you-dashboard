@@ -1,5 +1,4 @@
 import { BaseCommand, inject } from "@adonisjs/core/build/standalone";
-import User from "../app/Models/User";
 
 export default class Tinker extends BaseCommand {
 	/**
@@ -29,9 +28,5 @@ export default class Tinker extends BaseCommand {
 	};
 
 	@inject()
-	public async run() {
-		const users = await User.all();
-		// this.logger.info('Hello world!')
-		console.log(JSON.stringify(users, null, 2));
-	}
+	public async run() {}
 }

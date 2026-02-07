@@ -3,10 +3,12 @@
 	"exclude": ["node_modules", "build"],
 	"include": ["**/*"],
 	"compilerOptions": {
-		
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
 		"outDir": "build",
 		"rootDir": "./",
-		
+
 		"skipLibCheck": true,
 		"baseUrl": "./",
 		"resolveJsonModule": true,

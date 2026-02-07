@@ -5,7 +5,7 @@ import {
 	hasMany,
 } from "@ioc:Adonis/Lucid/Orm";
 import type { DateTime } from "luxon";
-import Transaction from "./Transaction";
+import Transaction from "App/Models/Transaction";
 
 export default class User extends BaseModel {
 	@column({ isPrimary: true })
