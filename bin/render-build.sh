@@ -10,6 +10,6 @@ echo "RUNNING CI..."
 npm ci --production --legacy-peer-deps
 echo "RUNNING MIGRATION"
 # ENV_PATH=/etc/secrets/.env
-node ace migration:run --force
+# node ace migration:run --force
 echo "GOING OUT OF BUILD"
 cd ..
